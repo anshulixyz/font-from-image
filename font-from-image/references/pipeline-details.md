@@ -87,6 +87,18 @@ x-height / xheight-units x 1000 px, with `--native-font` for native lines. `--co
 original beside it. Pillow renders with FreeType, so advances round to whole pixels at small
 sizes; judge spacing at the specimen size, not at 12 px.
 
+## measure_style.py -> build/style/STYLE.md, style.json
+Groups lines by `group_xheight` (body vs headings). Per group: x-height and ascender in
+original-image px, baseline pitch (median of baseline differences), median letter gap and word
+gap, alignment (whichever of left edges / right edges / centres varies least), text block
+margins, slant (principal axis of the upper part of `l i I d` stems), stroke/x-height from the
+distance transform of round letters (weight hint: regular < 0.26 < medium < 0.36 < bold).
+Font size = x-height / the font's x-height ratio: 0.48 for built fonts, the OS/2 sxHeight for a
+`--matched-font`. Letter spacing is reported in em (gap / font size); for the built font it is
+baked into the side bearings, so tools get 0. Colours: median RGB of ink pixels and of paper
+pixels after background normalisation. Canva font-size numbers are approximate (Canva units are
+~1.33 px); the specimen is the ground truth.
+
 ## Making a second weight without bold lettering in the image
 Measure before setting flags. For the heading vs body of one image: stroke width (distance
 transform on both), letter width per x-height, letter gap per x-height, word gap per x-height.

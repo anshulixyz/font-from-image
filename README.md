@@ -29,6 +29,23 @@ Then in Claude Code: *"here's a photo of my handwriting, make me a font"* or *"w
 this?"* with an image attached. The skill creates a Python virtualenv the first time
 (`scripts/setup.sh`): fonttools, potracer, numpy, scipy, pillow, scikit-image, brotli.
 
+## First use (what onboarding looks like)
+
+1. Attach or point Claude at an image and say what you want ("make a font from this",
+   "what font is this", "I want to type in my handwriting").
+2. Claude looks at the image, tells you whether the lettering looks like a real font or a
+   hand, and which path it is taking. If both are possible it says so and you choose.
+3. The first time, it creates a Python virtualenv in your project folder (about a minute) and
+   says so. Nothing is installed globally; delete the folder to remove everything.
+4. It asks you to confirm the transcript only when the handwriting is hard to read; otherwise
+   it reads the text itself.
+5. You get a folder: `fonts/` (OTF, TTF, WOFF2), `specimen.png` next to your image,
+   `STYLE.md` with size, line height, spacing and colours for CSS, Figma, Canva and Docs, a
+   `demo.html`, and a README of what was traced and what was composed. On the identify path
+   you get the font name, licence, where to get it, and the same STYLE.md for that font.
+6. Install by double-clicking the TTF, or with the `@font-face` rules from `demo.html`. In
+   Canva, upload the TTF under Brand Kit (Pro).
+
 ## What is in the skill
 
 ```
@@ -43,7 +60,8 @@ font-from-image/
 │   ├── pick_glyphs.py                best instance per character, baselines, x-heights
 │   ├── synth_glyphs.py               compose missing characters from the hand's strokes
 │   ├── build_font.py                 trace + assemble OTF/TTF/WOFF2 (fontTools, potrace)
-│   └── specimen.py                   re-typeset the source text for side-by-side checking
+│   ├── specimen.py                   re-typeset the source text for side-by-side checking
+│   └── measure_style.py              size, line height, spacing, colours -> CSS/Figma/Canva/Docs settings
 └── references/
     ├── free-handwriting-fonts.md     curated candidate list with the tells to compare
     └── pipeline-details.md           internals and knobs for every stage

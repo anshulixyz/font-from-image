@@ -13,8 +13,20 @@ Two ways to get a font out of a picture of lettering:
    cut out of the image itself. Slower, but it reproduces exactly that hand.
 
 Most requests need a quick look at both. The sections below go through: decide, identify,
-create, finish. The scripts live in `scripts/` (Python; run `scripts/setup.sh` once to make a
-virtualenv with fonttools, potracer, numpy, scipy, pillow, scikit-image, brotli).
+create, measure, finish.
+
+**First run.** The scripts live in this skill's `scripts/` folder and need a Python
+virtualenv. Make one in the user's project (not inside the skill) and use it for every call:
+
+```bash
+bash <skill>/scripts/setup.sh .venv        # once; installs fonttools, potracer, numpy, scipy, pillow, scikit-image, brotli
+.venv/bin/python <skill>/scripts/prep.py ...
+```
+
+Tell the user in one line that this is happening the first time. Work in a fresh folder named
+for the font (e.g. `her-hand-font/`) so the deliverable is self-contained, and copy the source
+image into it. Every command below is shown as `python scripts/x.py`; read that as the venv
+python and the skill's scripts path.
 
 ## 1. Decide which path
 
@@ -182,8 +194,9 @@ characters are approximations. Suggest the SIL Open Font License if the user wan
 it, with themselves as copyright holder; a font made from someone else's handwriting needs
 that person's permission.
 
-Tell the user how to install (double-click the TTF, or `@font-face` on the web) and offer the
-obvious next steps: a second weight, better composed glyphs from a sample sheet they write
+Tell the user how to install (double-click the TTF, or `@font-face` on the web; in Canva,
+Brand Kit -> upload font, Pro feature; Figma reads installed fonts) and offer the obvious
+next steps: a second weight, better composed glyphs from a sample sheet they write
 containing the missing characters, or a cleaner source image.
 
 ## Working notes
