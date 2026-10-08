@@ -18,16 +18,39 @@ Everything runs locally. Nothing is uploaded.
 
 ## Install
 
-Copy or symlink the `font-from-image/` folder into your skills directory:
+**Claude Code (desktop app or CLI)** - any one of these:
 
 ```bash
+# 1. clone and symlink (updates with git pull)
 git clone https://github.com/anshulixyz/font-from-image
 ln -s "$PWD/font-from-image/font-from-image" ~/.claude/skills/font-from-image
+
+# 2. or copy the folder into your skills directory
+cp -r font-from-image/font-from-image ~/.claude/skills/
+
+# 3. or, for one project only
+mkdir -p .claude/skills && cp -r font-from-image/font-from-image .claude/skills/
 ```
 
-Then in Claude Code: *"here's a photo of my handwriting, make me a font"* or *"what font is
-this?"* with an image attached. The skill creates a Python virtualenv the first time
-(`scripts/setup.sh`): fonttools, potracer, numpy, scipy, pillow, scikit-image, brotli.
+Or download [`font-from-image.skill`](font-from-image.skill) and use **Save skill** in the Claude
+desktop app. Check it is loaded by asking Claude "what skills do you have"; `font-from-image`
+should be listed.
+
+**Claude.ai / Cowork**: upload `font-from-image.skill` in Settings -> Skills (or attach it to a
+project). The scripts need a machine with Python, so the create path works where Claude can
+run code (Cowork, Claude Code); the identify path works anywhere Claude can view images.
+
+**Other agents (Codex, Cursor, Gemini CLI, OpenHands, ...)**: the scripts are plain Python
+command-line tools with no Claude-specific parts. Point the agent at [`AGENTS.md`](AGENTS.md),
+which explains the workflow and every command; `font-from-image/SKILL.md` has the full
+reasoning. `CLAUDE.md` makes Claude Code pick this up automatically inside the repo.
+
+**By hand, without any agent**: run the scripts yourself in the order given in `AGENTS.md`.
+You will need to look at the intermediate images where the agent would.
+
+Requirements: Python 3.9+, and `scripts/setup.sh` installs fonttools, potracer, numpy, scipy,
+pillow, scikit-image and brotli into a virtualenv. Fonts for the identify path are downloaded
+from the google/fonts GitHub repository on demand.
 
 ## First use (what onboarding looks like)
 
