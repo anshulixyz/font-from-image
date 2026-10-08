@@ -21,7 +21,7 @@ Everything runs locally. Nothing is uploaded.
 Copy or symlink the `font-from-image/` folder into your skills directory:
 
 ```bash
-git clone https://github.com/<you>/font-from-image
+git clone https://github.com/anshulixyz/font-from-image
 ln -s "$PWD/font-from-image/font-from-image" ~/.claude/skills/font-from-image
 ```
 
